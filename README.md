@@ -1,16 +1,41 @@
-# flutterrealtimedatabase
+ *This method adds information to the Database*
+ _onEntryAdded(Event event) {
+    setState(() {
+      items.add(Item.fromSnapshot(event.snapshot));
+    });
+  }
 
-A new Flutter application.
+ *This method check always if the Database are changed and changed the data in us list that shows our Database*
+ _onEntryChanged(Event event) {
+    var old = items.singleWhere((entry) {
+      return entry.key == event.snapshot.key;
+    });
+    setState(() {
+      items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
+    });
+  }
 
-## Getting Started
+ *This method send the data to our Database*
+ void handleSubmit() {
+    final FormState form = formKey.currentState;
 
-This project is a starting point for a Flutter application.
+    if (form.validate()) {
+      form.save();
+      form.reset();
+      itemRef.push().set(item.toJson());
+    }
+  }
+  
+ *This element shows us the information obtained from the database and display it in ListTile* 
+ FirebaseAnimatedList(
+              query: itemRef,
+              itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                  Animation<double> animation, int index) {
+                return new ListTile(
+                  leading: Icon(Icons.message),
+                  title: Text(items[index].title),
+                  subtitle: Text(items[index].body),
+                );
+              },
+            )
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
