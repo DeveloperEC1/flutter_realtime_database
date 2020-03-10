@@ -4,6 +4,7 @@
 
 
 >  *This method adds information to the Database* 
+
  ```
 _onEntryAdded(Event event) {
     setState(() {
@@ -13,6 +14,7 @@ _onEntryAdded(Event event) {
 ```
 
 >  *This method check always if the Database are changed and changed the data in us list that shows our Database* 
+
  ```
 _onEntryChanged(Event event) {
     var old = items.singleWhere((entry) {
@@ -25,6 +27,7 @@ _onEntryChanged(Event event) {
 ```
 
 >  *This method send the data to our Database* 
+
  ```
 void handleSubmit() {
     final FormState form = formKey.currentState;
@@ -36,8 +39,27 @@ void handleSubmit() {
     }
   }
 ```
-  
+
+> *This method is updates the first item you are uploaded to the Database* 
+
+```
+ _update() {
+    itemRef
+        .child('path1')
+        .update({'title': 'updated', 'body': 'updated'});
+  }
+```
+
+> *This method is deletes the first item you are uploaded to the Database* 
+
+```
+ _delete() {
+    itemRef.child('path1').remove();
+  }
+```
+
 >  *This element shows us the information obtained from the database and display it in ListTile*  
+
  ```
 FirebaseAnimatedList(
               query: itemRef,
