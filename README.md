@@ -1,3 +1,8 @@
+***This repository is designed to pull and push information out of and into Firebase's Database***
+
+
+
+
 >  *This method adds information to the Database* 
  ```
 _onEntryAdded(Event event) {
