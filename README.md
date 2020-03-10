@@ -1,12 +1,15 @@
- *This method adds information to the Database*
- _onEntryAdded(Event event) {
+>  *This method adds information to the Database* 
+ ```
+_onEntryAdded(Event event) {
     setState(() {
       items.add(Item.fromSnapshot(event.snapshot));
     });
   }
+```
 
- *This method check always if the Database are changed and changed the data in us list that shows our Database*
- _onEntryChanged(Event event) {
+>  *This method check always if the Database are changed and changed the data in us list that shows our Database* 
+ ```
+_onEntryChanged(Event event) {
     var old = items.singleWhere((entry) {
       return entry.key == event.snapshot.key;
     });
@@ -14,9 +17,11 @@
       items[items.indexOf(old)] = Item.fromSnapshot(event.snapshot);
     });
   }
+```
 
- *This method send the data to our Database*
- void handleSubmit() {
+>  *This method send the data to our Database* 
+ ```
+void handleSubmit() {
     final FormState form = formKey.currentState;
 
     if (form.validate()) {
@@ -25,9 +30,11 @@
       itemRef.push().set(item.toJson());
     }
   }
+```
   
- *This element shows us the information obtained from the database and display it in ListTile* 
- FirebaseAnimatedList(
+>  *This element shows us the information obtained from the database and display it in ListTile*  
+ ```
+FirebaseAnimatedList(
               query: itemRef,
               itemBuilder: (BuildContext context, DataSnapshot snapshot,
                   Animation<double> animation, int index) {
@@ -38,4 +45,6 @@
                 );
               },
             )
+```
+
 
