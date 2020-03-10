@@ -23,6 +23,7 @@ class RealtimeDatabaseState extends State<RealtimeDatabase> {
   List<Item> items = List();
   Item item;
   DatabaseReference itemRef;
+  int num = 0;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -57,8 +58,17 @@ class RealtimeDatabaseState extends State<RealtimeDatabase> {
     if (form.validate()) {
       form.save();
       form.reset();
-      itemRef.push().set(item.toJson());
+      num = num + 1;
+      itemRef.child('path' + num.toString()).set(item.toJson());
     }
+  }
+
+  _update() {
+    itemRef.child('path' + num.toString()).update({'title': 'updated'});
+  }
+
+  _delete() {
+    itemRef.child('path').remove();
   }
 
   @override
@@ -108,6 +118,18 @@ class RealtimeDatabaseState extends State<RealtimeDatabase> {
                         handleSubmit();
                       },
                     ),
+                    IconButton(
+                      icon: Icon(Icons.update),
+                      onPressed: () {
+                        _update();
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        _delete();
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -119,10 +141,9 @@ class RealtimeDatabaseState extends State<RealtimeDatabase> {
               itemBuilder: (BuildContext context, DataSnapshot snapshot,
                   Animation<double> animation, int index) {
                 return new ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text(items[index].title),
-                  subtitle: Text(items[index].body),
-                );
+                    leading: Icon(Icons.message),
+                    title: Text(items[index].title),
+                    subtitle: Text(items[index].body));
               },
             ),
           ),
