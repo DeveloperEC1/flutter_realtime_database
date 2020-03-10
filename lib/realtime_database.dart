@@ -64,11 +64,13 @@ class RealtimeDatabaseState extends State<RealtimeDatabase> {
   }
 
   _update() {
-    itemRef.child('path' + num.toString()).update({'title': 'updated'});
+    itemRef
+        .child('path1')
+        .update({'title': 'updated', 'body': 'updated'});
   }
 
   _delete() {
-    itemRef.child('path').remove();
+    itemRef.child('path1').remove();
   }
 
   @override
