@@ -54,7 +54,6 @@ class RealtimeDatabaseState extends State<RealtimeDatabase> {
 
   void handleSubmit() {
     final FormState form = formKey.currentState;
-
     if (form.validate()) {
       form.save();
       form.reset();
@@ -64,9 +63,7 @@ class RealtimeDatabaseState extends State<RealtimeDatabase> {
   }
 
   _update() {
-    itemRef
-        .child('path1')
-        .update({'title': 'updated', 'body': 'updated'});
+    itemRef.child('path1').update({'title': 'updated', 'body': 'updated'});
   }
 
   _delete() {
