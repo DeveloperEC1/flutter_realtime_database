@@ -58,7 +58,7 @@ class RealtimeDatabaseState extends State<RealtimeDatabase> {
       form.save();
       form.reset();
       num = num + 1;
-      itemRef.child('path1' + num.toString()).set(item.toJson());
+      itemRef.child('path' + num.toString()).set(item.toJson());
     }
   }
 
